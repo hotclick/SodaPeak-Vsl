@@ -1,0 +1,565 @@
+/* =========================================
+   VARIÁVEIS
+   ========================================= */
+:root {
+  --bg: #0d0d10;
+  --bg-2: #16161b;
+  --texto: #bebec8;
+  --titulo: #ffffff;
+  --primaria: #e11d1d;
+  --primaria-escura: #b91c2e;
+  --ouro: #fcd015;
+  --ouro-escuro: #a78a19;
+  --verde: #16a34a;
+  --card: #ffffff;
+  --card-texto: #231f20;
+  --raio: 16px;
+
+  /* Buy box: cores do rótulo do SodaPeak (preto, vinho e dourado champanhe) */
+  --vinho: #6e2232;
+  --vinho-escuro: #2a0b11;
+  --champanhe: #e3c792;
+  --champanhe-escuro: #9c7a45;
+  --creme: #f7f1e8;
+  --creme-texto: #24161a;
+  --creme-suave: #7a6a62;
+}
+
+/* =========================================
+   BASE
+   ========================================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* Esconde a seção até o tempo do pitch.
+   Sem !important: o VTurb (displayHiddenElements) mostra a seção via style inline. */
+.esconder { display: none; }
+
+/* =========================================
+   AVISO (faixa com a data de hoje)
+   ========================================= */
+.aviso {
+  background: var(--primaria);
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 10px 16px;
+}
+
+#data-hoje { color: var(--ouro); white-space: nowrap; }
+
+/* =========================================
+   HEADLINE
+   ========================================= */
+.headline {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 16px 20px;
+  text-align: center;
+}
+
+.headline__titulo {
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--titulo);
+}
+
+.headline__destaque { color: var(--ouro); }
+
+/* =========================================
+   VSL
+   ========================================= */
+.vsl {
+  width: 100%;
+  max-width: 432px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* Vídeo vertical (9:16): a altura vem do placeholder do VTurb */
+.vsl__player {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+}
+
+.vsl__aviso {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--titulo);
+}
+
+/* =========================================
+   OFERTAS / POTES
+   ========================================= */
+.ofertas {
+  padding: 56px 16px 72px;
+  background:
+    radial-gradient(ellipse at top, rgba(110, 34, 50, .4), transparent 60%),
+    #120c0d;
+  animation: aparecer .6s ease both;
+}
+
+.ofertas__titulo {
+  text-align: center;
+  color: var(--titulo);
+  font-size: 32px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  margin-bottom: 48px;
+}
+
+.ofertas__grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.08fr 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ---------- Card ---------- */
+.card {
+  position: relative;
+  background: var(--creme);
+  color: var(--creme-texto);
+  border: 1px solid rgba(156, 122, 69, .35);
+  border-radius: var(--raio);
+  padding: 40px 22px 22px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  transition: transform .2s ease, box-shadow .2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+}
+
+.card__tag {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3a3b38;
+  color: var(--champanhe);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  white-space: nowrap;
+  padding: 8px 20px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+}
+
+.card--3 .card__tag { background: var(--vinho); color: #fff; }
+
+.card__qtd {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.card__supply {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--creme-suave);
+  margin-top: 4px;
+}
+
+.card__img {
+  width: 100%;
+  max-width: 300px;
+  margin: 14px auto 6px;
+}
+
+/* Preço */
+.card__preco {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  font-family: "Ubuntu", sans-serif;
+  line-height: 1;
+}
+
+.card__moeda {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.card__valor {
+  font-size: 84px;
+  font-weight: 700;
+  letter-spacing: -.03em;
+}
+
+.card__per {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--creme-suave);
+  margin-top: 16px;
+}
+
+/* Benefícios */
+.card__beneficios {
+  list-style: none;
+  width: 100%;
+  margin: 16px 0 12px;
+  border-top: 1px dashed rgba(110, 34, 50, .22);
+}
+
+.card__beneficios li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 1px dashed rgba(110, 34, 50, .22);
+}
+
+.card__beneficios li::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--vinho) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+/* Total */
+.card__total {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card__total s { color: #a8958b; font-weight: 500; }
+.card__total strong { font-size: 22px; font-weight: 900; }
+
+.card__frete {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--vinho);
+  margin-top: 2px;
+}
+
+.card__frete--gratis { color: var(--vinho); }
+
+.card__cartoes {
+  width: 100%;
+  max-width: 240px;
+  margin-top: 12px;
+}
+
+/* ---------- Card destaque (6 potes) ---------- */
+.card--destaque {
+  background: linear-gradient(180deg, var(--vinho) 0%, var(--vinho-escuro) 100%);
+  color: #fff;
+  border: 3px solid var(--champanhe);
+  padding-top: 48px;
+  padding-bottom: 28px;
+  box-shadow: 0 0 0 6px rgba(227, 199, 146, .15), 0 20px 50px rgba(0, 0, 0, .5);
+  transform: scale(1.04);
+}
+
+.card--destaque:hover { transform: scale(1.04) translateY(-4px); }
+
+.card--destaque .card__tag {
+  background: var(--champanhe);
+  color: var(--vinho-escuro);
+  font-size: 15px;
+  padding: 10px 24px;
+}
+
+.card--destaque .card__qtd {
+  font-size: 40px;
+  text-shadow: 0 .1em .1em rgba(0, 0, 0, .5);
+}
+
+.card--destaque .card__supply { color: #e6c9ce; }
+.card--destaque .card__per { color: #f1dde0; }
+
+.card--destaque .card__valor {
+  color: var(--champanhe);
+  font-size: 96px;
+  text-shadow: .06em .06em .06em #000;
+}
+
+.card--destaque .card__beneficios,
+.card--destaque .card__beneficios li { border-color: rgba(227, 199, 146, .3); }
+
+.card--destaque .card__beneficios li::before { background-color: var(--champanhe-escuro); }
+
+.card--destaque .card__total s { color: #c99aa3; }
+.card--destaque .card__frete--gratis { color: var(--champanhe); }
+
+/* =========================================
+   BOTÕES
+   ========================================= */
+.btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.btn:active { transform: translateY(1px); }
+
+.btn--primario {
+  color: var(--vinho-escuro);
+  background: linear-gradient(180deg, #f3dfb3 0%, #d2ae6c 100%);
+  border: 2px solid var(--champanhe-escuro);
+  box-shadow: 0 5px 0 var(--champanhe-escuro), 0 10px 24px rgba(227, 199, 146, .35);
+  font-size: 26px;
+  animation: pulsar 2s ease-in-out infinite;
+}
+
+.btn--secundario {
+  color: #fff;
+  background: linear-gradient(180deg, #8a2c3e 0%, #4e1621 100%);
+  box-shadow: 0 5px 0 var(--vinho-escuro);
+}
+
+/* =========================================
+   GARANTIA
+   ========================================= */
+.garantia {
+  padding: 56px 16px 64px;
+  background: var(--bg);
+  animation: aparecer .6s ease both;
+}
+
+.garantia__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: center;
+  gap: 32px;
+}
+
+.garantia__selo { width: 100%; max-width: 220px; margin: 0 auto; }
+
+.garantia__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.garantia__titulo {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--titulo);
+}
+
+.garantia__sub {
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--ouro);
+}
+
+.garantia__texto a { color: var(--ouro); font-weight: 700; }
+
+.selos {
+  max-width: 900px;
+  margin: 48px auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.selos img { width: 100%; max-width: 140px; margin: 0 auto; }
+
+/* =========================================
+   RODAPÉ
+   ========================================= */
+/* margin-top: auto empurra o rodapé para o fim da tela,
+   eliminando o espaço preto vazio abaixo do conteúdo */
+.rodape {
+  margin-top: auto;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  padding: 32px 16px;
+}
+
+.rodape__inner {
+  max-width: 868px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rodape__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+}
+
+.rodape__links a {
+  color: #d4d4da;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rodape__links a:hover { color: #fff; text-decoration: underline; }
+
+.rodape__copy {
+  font-size: 12px;
+  color: #6b6b75;
+}
+
+/* =========================================
+   ANIMAÇÕES
+   ========================================= */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes pulsar {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ofertas, .garantia, .btn--primario { animation: none; }
+}
+
+/* =========================================
+   RESPONSIVO
+   ========================================= */
+@media (max-width: 1024px) {
+  .ofertas__grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    gap: 40px;
+  }
+
+  /* No mobile: 6 → 3 → 2 */
+  .card--6 { order: 1; }
+  .card--3 { order: 2; }
+  .card--2 { order: 3; }
+
+  .card--destaque,
+  .card--destaque:hover { transform: none; }
+
+  .garantia__inner { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+  .garantia__selo { max-width: 180px; }
+}
+
+@media (max-width: 480px) {
+  .aviso { font-size: 13px; padding: 8px 12px; }
+
+  .headline { padding: 20px 12px 16px; }
+  .headline__titulo { font-size: 26px; }
+
+  .vsl { padding: 0 12px 32px; }
+  .vsl__aviso { font-size: 14px; }
+
+  .garantia { padding: 40px 12px 48px; }
+  .garantia__titulo { font-size: 22px; }
+  .garantia__texto { font-size: 15px; }
+  .selos { gap: 12px; margin-top: 32px; }
+
+  .rodape { padding: 24px 12px; }
+
+  .ofertas { padding: 40px 12px 56px; }
+  .ofertas__titulo { font-size: 24px; margin-bottom: 36px; }
+
+  /* Cards mais compactos no mobile */
+  .ofertas__grid { max-width: 340px; gap: 32px; }
+
+  .card { padding: 30px 16px 18px; }
+  .card--destaque { padding-top: 34px; padding-bottom: 20px; }
+
+  .card__tag { font-size: 11px; padding: 6px 14px; top: -13px; }
+  .card--destaque .card__tag { font-size: 12px; padding: 7px 16px; }
+
+  .card__qtd { font-size: 22px; }
+  .card--destaque .card__qtd { font-size: 26px; }
+  .card__supply { font-size: 13px; }
+
+  .card__img { max-width: 220px; margin: 8px auto 2px; }
+
+  .card__moeda { font-size: 22px; margin-top: 6px; }
+  .card__valor { font-size: 54px; }
+  .card--destaque .card__valor { font-size: 62px; }
+  .card__per { font-size: 11px; margin-top: 10px; }
+
+  .card__beneficios { margin: 12px 0 10px; }
+  .card__beneficios li { font-size: 12px; padding: 7px 0; gap: 6px; }
+  .card__beneficios li::before { width: 15px; height: 15px; background-size: 10px; }
+
+  .card__total { font-size: 15px; }
+  .card__total strong { font-size: 18px; }
+  .card__frete { font-size: 12px; }
+
+  .btn { font-size: 17px; padding: 13px 16px; margin-top: 12px; }
+  .btn--primario { font-size: 19px; }
+
+  .card__cartoes { max-width: 190px; margin-top: 10px; }
+}
