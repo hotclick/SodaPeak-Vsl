@@ -68,10 +68,13 @@
           style="position: relative; width: 100%; padding: 177.77777777777777% 0 0; z-index: 0; background-color: black;"></div>
       </vturb-smartplayer>
       <!-- PITCH: abre as ofertas no tempo do VÍDEO (não da página).
+           O tempo vem do próprio VTurb (pitch do vídeo no painel); o número abaixo é só reserva.
            Precisa ficar ANTES do script do player, senão o "player:ready" pode passar sem ser ouvido. -->
       <script>
-        var PITCH_SEGUNDOS = 3406; // tempo do vídeo (em segundos) em que as ofertas aparecem
+        var PITCH_SEGUNDOS = 3406; // reserva: 56:46
         document.querySelector("vturb-smartplayer").addEventListener("player:ready", function (e) {
+          var doVturb = e.target.config && e.target.config.pitchTime;
+          if (doVturb > 0) PITCH_SEGUNDOS = doVturb;
           e.target.displayHiddenElements(PITCH_SEGUNDOS, [".esconder"], { persist: true });
         });
       </script>

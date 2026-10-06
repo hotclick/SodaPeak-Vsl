@@ -29,7 +29,8 @@ function mostrarOfertas(rolar = true) {
 
 function verificarTempo(tempo, smartAutoPlay) {
   if (exibido || smartAutoPlay) return; // ignora o autoplay mudo
-  if (typeof tempo === "number" && tempo >= CONFIG.segundosPitch) mostrarOfertas();
+  const pitch = window.PITCH_SEGUNDOS || CONFIG.segundosPitch; // atualizado pelo VTurb no index.html
+  if (typeof tempo === "number" && tempo >= pitch) mostrarOfertas();
 }
 
 /* =========================================
